@@ -1,0 +1,26 @@
+# EECS 4461 — Cumulative Inquiry Project: Deliverable 2 Prototype
+
+This repository contains the Initial Computational Prototype for Deliverable 2 of the EECS 4461 Cumulative Inquiry Project (Fall 2026).
+
+## Investigation Overview
+- **Inquiry Question:** How does reserving one immediately visible position for an approaching assessment deadline affect the visibility of urgent deadlines and recent announcements in a simulated course interface?
+- **Real-World Referent:** Grounded conceptually in Moodle's Dashboard Timeline block.
+- **Model Scope:** Simulates a 30-day course interface displaying 5 immediately visible positions across low, medium, and high announcement-volume conditions.
+
+## Repository Structure
+```text
+EECS4461_Deadline_Visibility/
+├── README.md
+├── requirements.txt
+├── src/
+│   ├── virus_on_network/       # Preserved, runnable source Mesa example
+│   │   ├── SOURCE.md           # Source documentation and attribution
+│   │   ├── agents.py
+│   │   └── model.py
+│   └── project_model/          # Adapted Mesa prototype
+│       ├── __init__.py
+│       ├── agents.py           # CourseItemAgent implementation
+│       ├── model.py            # CourseFeedModel implementation
+│       └── run.py              # Experiment runner and output generator
+├── docs/                       # Project notes and documentation
+└── outputs/                    # Output files following DEL02 naming rules
