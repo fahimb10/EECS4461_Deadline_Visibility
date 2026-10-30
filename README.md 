@@ -3,9 +3,9 @@
 This repository contains the Initial Computational Prototype for Deliverable 2 of the EECS 4461 Cumulative Inquiry Project (Fall 2026).
 
 ## Investigation Overview
-- **Inquiry Question:** How does reserving one immediately visible position for an approaching assessment deadline affect the visibility of urgent deadlines and recent announcements in a simulated course interface?
-- **Context:** Modeled after the layout of Moodle's Dashboard Timeline block.
-- **Model Scope:** Simulates a 30 day course interface displaying 5 immediately visible positions across low, medium, and high announcement volume conditions.
+- Inquiry Question:how does reserving one immediately visible position for an approaching assessment deadline affect the visibility of urgent deadlines and recent announcements in a simulated course interface?
+- Context: modeled after the layout of Moodle's Dashboard Timeline block.
+- Model Scope: simulates a 30 day course interface displaying 5 immediately visible positions across low, medium, and high announcement volume conditions.
 
 ## Repository Structure
 
