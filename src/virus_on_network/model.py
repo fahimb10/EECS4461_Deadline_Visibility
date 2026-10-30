@@ -53,7 +53,7 @@ class VirusOnNetwork(mesa.Model):
             )
             self.grid.place_agent(agent, node)
 
-        # Infect initial outbreak
+        # infect initial outbreak
         infected_nodes = self.random.sample(list(self.G.nodes()), self.initial_outbreak_size)
         for a in self.grid.get_cell_list_contents(infected_nodes):
             a.state = State.INFECTED

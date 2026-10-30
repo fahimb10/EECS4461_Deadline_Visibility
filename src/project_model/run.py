@@ -11,23 +11,23 @@ def run():
     results = []
 
     for vol in volumes:
-        # 1) Run Baseline code
+        # 1) run Baseline code
         base_sim = CourseFeedModel(rule="baseline", volume=vol)
         for _ in range(30):
             base_sim.step()
         base_df = base_sim.datacollector.get_model_vars_dataframe()
 
-        # Save medium trace for baseline as required by DEL02
+        # save medium trace for baseline as required by DEL02
         if vol == "medium":
             base_df.to_csv(os.path.join(OUT_DIR, "baseline_raw_00_daily_trace.csv"), index=False)
 
-        # 2) Run Alternative code
+        # 2) run Alternative code
         alt_sim = CourseFeedModel(rule="alternative", volume=vol)
         for _ in range(30):
             alt_sim.step()
         alt_df = alt_sim.datacollector.get_model_vars_dataframe()
 
-        # Save medium trace for alternative as required by deliverable 2
+        # save medium trace for alternative as required by deliverable 2
         if vol == "medium":
             alt_df.to_csv(os.path.join(OUT_DIR, "alternative_raw_00_daily_trace.csv"), index=False)
 
@@ -45,10 +45,12 @@ def run():
         })
 
     summary = pd.DataFrame(results)
+    
     print("\n--- Simulation Summary ---")
+    
     print(summary.to_string(index=False))
 
-    # Save summary tables
+    # save summary tables
     summary[["volume", "urgent_occurrences", "baseline_vis_pct"]].to_csv(
         os.path.join(OUT_DIR, "baseline_processed_00_summary_table.csv"), index=False
     )
@@ -56,7 +58,7 @@ def run():
         os.path.join(OUT_DIR, "alternative_processed_00_summary_table.csv"), index=False
     )
 
-    # Plot 1: Baseline Urgent Visibility
+    # plot 1: Baseline Urgent Visibility
     plt.figure(figsize=(7, 4.5))
     plt.bar(summary["volume"], summary["baseline_vis_pct"], color="#1f77b4", width=0.4)
     plt.ylabel("Urgent Deadline Visibility (%)")
@@ -67,7 +69,8 @@ def run():
     plt.savefig(os.path.join(OUT_DIR, "baseline_processed_01_visibility_plot.png"), dpi=300)
     plt.close()
 
-    # Plot 2: Alternative Urgent Visibility
+
+    # plot 2: Alternative Urgent Visibility
     plt.figure(figsize=(7, 4.5))
     plt.bar(summary["volume"], summary["alternative_vis_pct"], color="#ff7f0e", width=0.4)
     plt.ylabel("Urgent Deadline Visibility (%)")
@@ -78,7 +81,7 @@ def run():
     plt.savefig(os.path.join(OUT_DIR, "alternative_processed_01_visibility_plot.png"), dpi=300)
     plt.close()
 
-    # Plot 3: Alternative Announcement Displacement
+    # plot 3: Alternative Announcement Displacement
     plt.figure(figsize=(7, 4.5))
     plt.bar(summary["volume"], summary["displaced_announcements"], color="#d62728", width=0.4)
     plt.ylabel("Displaced Announcement Occurrences")
@@ -87,7 +90,6 @@ def run():
     plt.tight_layout()
     plt.savefig(os.path.join(OUT_DIR, "alternative_processed_02_displacement_plot.png"), dpi=300)
     plt.close()
-
     print("\nAll outputs successfully saved to outputs/")
 
 if __name__ == "__main__":
