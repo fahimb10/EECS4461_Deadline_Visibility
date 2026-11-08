@@ -13,9 +13,7 @@ class CourseFeedModel(mesa.Model):
         self.displaced_count = 0
 
         # 1. setup the 6 fixed assessments (post_day, due_day)
-        assessment_schedule = [
-            (1, 7), (5, 12), (10, 16), (12, 17), (19, 25), (23, 29)
-        ]
+        assessment_schedule = [(1, 7), (5, 12), (10, 16), (12, 17), (19, 25), (23, 29)]
         for i, (p_day, d_day) in enumerate(assessment_schedule, start=1):
             CourseItemAgent(self, f"A{i}", "assessment", p_day, d_day)
 
@@ -28,14 +26,17 @@ class CourseFeedModel(mesa.Model):
         notice_days = []
         if volume == "low":
             notice_days = list(range(1, 31, 5))          # 6 items
+
         elif volume == "medium":
-            notice_days = list(range(1, 31, 2))          # 15 items
+            notice_days = list(range(1, 31, 2))       # 15 items
+
         elif volume == "high":
-            for d in range(1, 31):                       # 60 items (2 per day)
+            for d in range(1, 31):             # 60 items (2 per day)
                 notice_days.extend([d, d])
 
         for i, p_day in enumerate(notice_days, start=1):
             CourseItemAgent(self, f"N{i}", "announcement", p_day, None)
+
 
         # mesa datacollector tracking our daily numbers
         self.datacollector = mesa.DataCollector(
@@ -48,27 +49,29 @@ class CourseFeedModel(mesa.Model):
         )
 
     def get_baseline_feed(self):
-        # sort posted items newest first; break ties by item_id reverse
+        #sort posted items newest first; break ties by item_id reverse
         posted_items = [a for a in self.agents if getattr(a, "posted", False)]
         posted_items.sort(key=lambda a: (a.post_day, a.item_id), reverse=True)
         return posted_items[:5]
 
     def get_alternative_feed(self, default_feed):
-        # find all currently urgent assessments
+        #findd all currently urgent assessments
         urgent_items = [a for a in self.agents if getattr(a, "urgent", False)]
         if not urgent_items:
             return list(default_feed)
 
         # Pick the one with the nearest deadline (tie breaker: item_id)
         urgent_items.sort(key=lambda a: (a.due_day, a.item_id))
+
         nearest = urgent_items[0]
 
         # if it is already in the top 5, leave the feed as is
         if nearest in default_feed:
             return list(default_feed)
 
-        # otherwise reserve slot 0: take top 4 and put nearest at the front
+        #otherwise reserve slot 0--> take top 4 and put nearest at the front
         alt = default_feed[:4]
+
         alt.insert(0, nearest)
         return alt
 
@@ -82,6 +85,7 @@ class CourseFeedModel(mesa.Model):
 
             self.feed = base_items
             self.displaced_count = 0
+            
         elif self.rule == "alternative":
             alt_items = self.get_alternative_feed(base_items)
             self.feed = alt_items
