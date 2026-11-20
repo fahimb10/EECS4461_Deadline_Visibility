@@ -5,7 +5,7 @@ This repository contains the computational simulation and comparison inquiry for
 ## Investigation Overview
 - Inquiry Question: How does reserving one immediately visible position for an approaching assessment deadline affect the visibility of urgent deadlines and recent announcements in a simulated course interface?
 - Context: Modeled after the layout of Moodle's Dashboard Timeline block.
-- Model Scope: Simulates a 30-day course interface displaying 5 immediately visible positions across low, medium, and high announcement volume conditions.
+- Model Scope: Simulates a 30 day course interface displaying 5 immediately visible positions across low, medium, and high announcement volume conditions.
 
 ## How to Run
 
@@ -35,7 +35,7 @@ This generates all CSV traces, summary tables, and comparison plots directly int
 ### Changes from DEL02
 - Kept the simulation code in `src/project_model/` and the original example in `src/virus_on_network/`.
 - Ran the comparison between the two feed rules:
-  - **Baseline Rule:** Standard reverse-chronological order by post date.
+  - **Baseline Rule:** Standard reverse chronological order by post date.
   - **Alternative Rule:** Pinned urgent assessments (due in 3 days or less) to the top of the feed.
 - Tested both rules across 3 announcement volumes (Low: 6, Medium: 12, High: 24).
 - Saved all output files in the `outputs/` folder:
